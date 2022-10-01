@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Checkbox from "../Checkbox/Checkbox";
 import Modal from "../Modal/Modal";
 import Toast from "../Toast/Toast";
@@ -17,7 +17,7 @@ const Task = () => {
     }, 2500);
   };
 
-  const [tasks, setTasks] = useState([]);
+  const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem("tasks")));
   const handleAddTask = (task) => {
     if (task) {
       setTasks([...tasks, task]);
@@ -28,6 +28,10 @@ const Task = () => {
       clearToast();
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
+  }, [tasks]);
 
   const handleClearTasks = () => {
     if (tasks.length) {

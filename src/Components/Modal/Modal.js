@@ -7,18 +7,20 @@ const Modal = ({ handleAddTask, handleClearTasks }) => {
   };
   return (
     <div className="block text-center mt-5">
-      <label
-        htmlFor="my-modal-6"
-        className="btn btn-error text-white modal-button"
-      >
-        Add a Task
-      </label>
-      <button
-        className="btn text-white text-center ml-4"
-        onClick={handleClearTasks}
-      >
-        Clear all
-      </button>
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10">
+        <label
+          htmlFor="my-modal-6"
+          className="btn btn-error text-white modal-button"
+        >
+          Add a Task
+        </label>
+        <button
+          className="btn text-white text-center ml-4"
+          onClick={handleClearTasks}
+        >
+          Clear all
+        </button>
+      </div>
       <input type="checkbox" id="my-modal-6" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
