@@ -1,12 +1,43 @@
 import React, { useState } from "react";
 import Checkbox from "../Checkbox/Checkbox";
+import Modal from "../Modal/Modal";
+import Toast from "../Toast/Toast";
 
 const Task = () => {
-  const tasks = ["Eat", "Sleep", "Code", "Repeat"];
   const [progressbar, setProgressbar] = useState(0);
   const handleProgressbar = (progress) => {
     setProgressbar(progressbar + progress);
     console.log(progress);
+  };
+
+  const [toast, setToast] = useState([false, ""]);
+  const clearToast = () => {
+    setTimeout(() => {
+      setToast([false, ""]);
+    }, 2500);
+  };
+
+  const [tasks, setTasks] = useState([]);
+  const handleAddTask = (task) => {
+    if (task) {
+      setTasks([...tasks, task]);
+      setToast([true, "Task Added Successfully!", "success"]);
+      clearToast();
+    } else {
+      setToast([true, "Please Add a Task!", "error"]);
+      clearToast();
+    }
+  };
+
+  const handleClearTasks = () => {
+    if (tasks.length) {
+      setTasks([]);
+      setToast([true, "Task cleared", "success"]);
+      clearToast();
+    } else {
+      setToast([true, "No Task to Clear", "success"]);
+      clearToast();
+    }
   };
 
   return (
@@ -22,6 +53,11 @@ const Task = () => {
             value={(progressbar / tasks.length) * 100}
             max="100"
           ></progress>
+          {!tasks.length ? (
+            <p className="text-gray-400 text-center mt-2">No tasks to show</p>
+          ) : (
+            false
+          )}
           {tasks.map((task, i) => {
             return (
               <Checkbox
@@ -35,6 +71,11 @@ const Task = () => {
           })}
         </div>
       </div>
+      <Modal
+        handleAddTask={handleAddTask}
+        handleClearTasks={handleClearTasks}
+      ></Modal>
+      <Toast toast={toast}></Toast>
     </div>
   );
 };

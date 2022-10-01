@@ -1,6 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 
-const Modal = () => {
+const Modal = ({ handleAddTask, handleClearTasks }) => {
+  const [task, setTask] = useState("");
+  const handleInputChange = (txt) => {
+    setTask(txt);
+  };
   return (
     <div className="block text-center mt-5">
       <label
@@ -9,20 +13,35 @@ const Modal = () => {
       >
         Add a Task
       </label>
-      <button className="btn text-white text-center ml-4">Clear all</button>
+      <button
+        className="btn text-white text-center ml-4"
+        onClick={handleClearTasks}
+      >
+        Clear all
+      </button>
       <input type="checkbox" id="my-modal-6" className="modal-toggle" />
       <div className="modal modal-bottom sm:modal-middle">
         <div className="modal-box">
-          <h3 className="font-bold text-lg">
-            Congratulations random Internet user!
-          </h3>
-          <p className="py-4">
-            You've been selected for a chance to get one year of subscription to
-            use Wikipedia for free!
-          </p>
-          <div className="modal-action">
-            <label htmlFor="my-modal-6" className="btn">
-              Yay!
+          <h3 className="font-bold text-lg">Add a new task</h3>
+          <input
+            type="text"
+            placeholder="Type here"
+            className="input input-bordered mt-3 w-full max-w-xs"
+            value={task}
+            onChange={(e) => {
+              handleInputChange(e.target.value);
+            }}
+          />
+          <div className="modal-action text-center">
+            <label
+              htmlFor="my-modal-6"
+              className="btn btn-error text-white mx-auto"
+              onClick={() => {
+                handleAddTask(task);
+                setTask("");
+              }}
+            >
+              Add
             </label>
           </div>
         </div>
