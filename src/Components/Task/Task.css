@@ -1,0 +1,4 @@
+.progress-rose::-webkit-progress-value {
+  --tw-bg-opacity: 1;
+  background-color: hsl(350, 89%, 60% / var(--tw-bg-opacity)) !important;
+}
