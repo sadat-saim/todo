@@ -17,7 +17,9 @@ const Task = () => {
     }, 2500);
   };
 
-  const [tasks, setTasks] = useState(JSON.parse(localStorage.getItem("tasks")));
+  const [tasks, setTasks] = useState(
+    JSON.parse(localStorage.getItem("tasks")) || []
+  );
   const handleAddTask = (task) => {
     if (task) {
       setTasks([...tasks, task]);
@@ -42,6 +44,7 @@ const Task = () => {
       setToast([true, "No Task to Clear", "success"]);
       clearToast();
     }
+    localStorage.clear();
   };
 
   return (
@@ -50,25 +53,24 @@ const Task = () => {
         <input type="checkbox" className="peer" />
         <div className="collapse-title bg-gray-200 text-gray-600 font-semibold text-xl">
           Task Lists
+          <span className="indicator-item badge badge-error text-white">
+            {tasks?.length || 0}
+          </span>
         </div>
         <div className="collapse-content bg-gray-100 peer-checked:pt-3 text-primary-content">
           <progress
             className="progress progress-error  w-full"
-            value={(progressbar / tasks.length) * 100}
+            value={`${(progressbar / tasks?.length) * 100}`}
             max="100"
           ></progress>
-          {!tasks.length ? (
+          {!tasks?.length ? (
             <p className="text-gray-400 text-center mt-2">No tasks to show</p>
           ) : (
             false
           )}
-          {tasks.map((task, i) => {
+          {tasks?.map((task, i) => {
             return (
-              <Checkbox
-                key={i}
-                checked={false}
-                handleProgressbar={handleProgressbar}
-              >
+              <Checkbox key={i} id={i} handleProgressbar={handleProgressbar}>
                 {task}
               </Checkbox>
             );

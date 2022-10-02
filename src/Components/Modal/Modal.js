@@ -7,7 +7,7 @@ const Modal = ({ handleAddTask, handleClearTasks }) => {
   };
   return (
     <div className="block text-center mt-5">
-      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10">
+      <div className="absolute bottom-12 left-1/2 -translate-x-1/2 z-10 w-full">
         <label
           htmlFor="my-modal-6"
           className="btn btn-error text-white modal-button"
